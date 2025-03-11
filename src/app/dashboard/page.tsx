@@ -1,20 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { auth } from "../../../firebaseConfig";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth, } from "../../firebaseConfig";
+import { onAuthStateChanged, signOut, User } from "firebase/auth";
 import { useRouter } from "next/navigation";
 
 export default function DashboardPage() {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);  // ✅ Fixed Type
   const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
       } else {
-        router.push("/login"); // Redirect to login if not authenticated
+        router.push("/login");
       }
     });
 
@@ -22,7 +22,7 @@ export default function DashboardPage() {
   }, [router]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-white">
+    <div className="flex flex-col items-center justify-center min-h-screen">
       <h2 className="text-2xl font-bold">Dashboard</h2>
       {user ? <p>Welcome, {user.email}</p> : <p>Loading...</p>}
       <button
