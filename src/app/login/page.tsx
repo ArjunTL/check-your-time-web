@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { auth } from "../../../firebaseConfig";
+import { auth } from "../../firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import Image from "next/image"; 
 
 export default function LoginPage() {
   const [email, setEmail] = useState<string>("");
@@ -17,18 +18,24 @@ export default function LoginPage() {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      router.push("/dashboard"); // Redirect user after successful login
-    } catch (err) {
-      setError("Invalid email or password. Please try again.");
+      router.push("/dashboard"); 
+    } catch (err: unknown) {
+        if (err instanceof Error) {  
+            console.error("Login error:", err.message);
+            setError(err.message);
+          } else {
+            console.error("An unknown error occurred");
+            setError("An unknown error occurred. Please try again.");
+          }
     }
   };
 
   return (
     <div className="flex min-h-screen flex-col justify-center px-6 py-12 lg:px-8 bg-white">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img
+        <Image
           alt="Your Company"
-          src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
+          src="https://tailwindcss.com/plus-assets/Image/logos/mark.svg?color=indigo&shade=600"
           className="mx-auto h-10 w-auto"
         />
         <h2 className="mt-10 text-center text-2xl font-bold tracking-tight text-gray-900">
