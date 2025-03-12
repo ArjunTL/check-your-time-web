@@ -5,8 +5,19 @@ import { db, collection, addDoc, getDocs, doc, deleteDoc } from "@/firebaseConfi
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+
 export default function LotteryViewPage() {
-  const [lotteryResults, setLotteryResults] = useState<any[]>([]);
+    interface PrizeData {
+        firstPrize: { amount: string; winner: string };
+        secondPrize: { amount: string; winner: string };
+        thirdPrize: { amount: string; winners: string[] };
+      }
+      interface LotteryResult {
+        id: string; // Firestore document ID
+        lotteryId: string; // ✅ Include lotteryId from Firestore
+        prizes: PrizeData;
+      }
+  const [lotteryResults, setLotteryResults] = useState<LotteryResult[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [jsonData, setJsonData] = useState("");
@@ -18,12 +29,17 @@ export default function LotteryViewPage() {
   // Fetch Lottery Results
   const fetchLotteryResults = async () => {
     const querySnapshot = await getDocs(collection(db, "lottery_results"));
-    const resultsList = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
+    const resultsList = querySnapshot.docs.map((doc) => {
+      const data = doc.data();
+      return {
+        id: doc.id, // Firestore document ID
+        lotteryId: data.lotteryId || "Unknown", // ✅ Ensure lotteryId exists
+        prizes: data.prizes || {} // ✅ Ensure prizes is not undefined
+      };
+    });
     setLotteryResults(resultsList);
   };
+  
 
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
