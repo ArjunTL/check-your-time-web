@@ -37,6 +37,8 @@ export default function LoginPage() {
           alt="Your Company"
           src="https://tailwindcss.com/plus-assets/Image/logos/mark.svg?color=indigo&shade=600"
           className="mx-auto h-10 w-auto"
+          width={100}  // Set appropriate width
+          height={100} // Set appropriate height
         />
         <h2 className="mt-10 text-center text-2xl font-bold tracking-tight text-gray-900">
           Sign in to your account
