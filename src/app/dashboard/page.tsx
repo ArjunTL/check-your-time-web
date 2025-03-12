@@ -31,6 +31,12 @@ export default function DashboardPage() {
       >
         Logout
       </button>
+      <button
+        onClick={() => router.push("/lottery")}
+        className="bg-blue-500 text-white p-3 rounded mt-4"
+      >
+        View Lottery Results
+      </button>
     </div>
   );
 }
