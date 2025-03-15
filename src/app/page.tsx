@@ -160,33 +160,69 @@ export default function Example() {
         <div className="flex flex-wrap justify-between text-center m-6 pt-10">
           {/* First Column */}
           <div className="flex flex-col items-center flex-1 px-4 mb-8">
-            <img
-              src="icon1.png"
-              alt="Icon 1"
-              className="w-12 h-12 mb-4"
-            />
+           
+           {/* SVG Icon */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-12 h-12 mb-4 text-gray-900"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+            
             <h3 className="text-lg font-semibold text-gray-900">Easy Navigation for Quick <br/> Results</h3>
             <p className="text-sm text-gray-600 mt-4">Finding your lottery results has never been easier.</p>
           </div>
 
           {/* Second Column */}
           <div className="flex flex-col items-center flex-1 px-4 mb-8">
-            <img
-              src="icon2.png"
-              alt="Icon 2"
-              className="w-12 h-12 mb-4"
-            />
+           
+            {/* SVG Icon */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-12 h-12 mb-4 text-gray-900"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+
             <h3 className="text-lg font-semibold text-gray-900">Stay Updated with Past <br/> Results Archive</h3>
             <p className="text-sm text-gray-600 mt-4">Explore our comprehensive archive for previous draws.</p>
           </div>
 
           {/* Third Column */}
           <div className="flex flex-col items-center flex-1 px-4 mb-8">
-            <img
-              src="icon3.png"
-              alt="Icon 3"
-              className="w-12 h-12 mb-4"
-            />
+            
+            {/* SVG Icon */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-12 h-12 mb-4 text-gray-900"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+
             <h3 className="text-lg font-semibold text-gray-900">Search Function for Your <br/> Convenience</h3>
             <p className="text-sm text-gray-600 mt-4">Quickly find specific results using our search tool.</p>
           </div>
