@@ -9,59 +9,59 @@ const stats = [
 
 export default function Example() {
   return (
-    <div className=" min-h-screen flex flex-col justify-center items-start overflow-hidden relative">
-      {/* Full-Screen Background with Subtle Gradient */}
-      <div className="absolute inset-0">
-        <img
-          alt="Background"
-          src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2850&q=80"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-transparent opacity-50"></div>
-      </div>
+    <div className="min-h-screen bg-white">
+      {/* First Section with Background */}
+      <div className="relative min-h-screen flex flex-col justify-center items-start overflow-hidden">
+        {/* Full-Screen Background with Subtle Gradient */}
+        <div className="absolute inset-0">
+          <img
+            alt="Background"
+            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2850&q=80"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-transparent opacity-50"></div>
+        </div>
 
-      {/* Main Content Section Inside Gradient */}
-      <div className="relative z-10 px-6 sm:px-12 lg:px-24 max-w-screen-lg py-16 sm:py-24 lg:py-32">
-        <h2 className="text-sm sm:text-base lg:text-lg uppercase tracking-wide font-bold text-gray-200">
-          Neram
-        </h2>
-        <p className="mt-4 text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-tight tracking-tight text-white">
-          Trusted by thousands of People <br /> in Kerala
-        </p>
-        <p className="mt-6 text-sm sm:text-base lg:text-lg xl:text-xl text-gray-300 leading-relaxed">
-          Trusted by thousands, our app delivers fast and accurate lottery
-          results. Your journey to winning starts here.
-        </p>
+        {/* Main Content Section Inside Gradient */}
+        <div className="relative z-10 px-6 sm:px-12 lg:px-24 max-w-screen-lg py-16 sm:py-24 lg:py-20">
+          <p className="mt-4 text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-tight tracking-tight text-white">
+            Trusted by thousands of People <br /> in Kerala
+          </p>
+          <p className="mt-6 text-sm sm:text-base lg:text-lg xl:text-xl text-gray-300 leading-relaxed">
+            Trusted by thousands, our app delivers fast and accurate lottery
+            results. Your journey to winning starts here.
+          </p>
 
-        {/* Stats Section */}
-        <dl className="mt-12 grid grid-cols-1 gap-y-8 sm:grid-cols-2 sm:gap-x-8">
-          {stats.map((stat) => (
-            <div
-              key={stat.id}
-              className="flex flex-col gap-y-2 border-l-4 border-white pl-4"
-            >
-              <dt className="text-sm sm:text-base lg:text-lg font-medium text-gray-300">
-                {stat.name}
-              </dt>
-              <dd className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white">
-                {stat.value}
-              </dd>
-            </div>
-          ))}
-        </dl>
+          {/* Stats Section */}
+          <dl className="mt-12 grid grid-cols-1 gap-y-8 sm:grid-cols-2 sm:gap-x-8">
+            {stats.map((stat) => (
+              <div
+                key={stat.id}
+                className="flex flex-col gap-y-2 border-l-4 border-white pl-4"
+              >
+                <dt className="text-sm sm:text-base lg:text-lg font-medium text-gray-300">
+                  {stat.name}
+                </dt>
+                <dd className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white">
+                  {stat.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
 
-        {/* Buttons */}
-        <div className="mt-10 flex flex-wrap gap-6">
-          <button className="w-40 px-6 py-3 text-sm sm:text-base bg-white text-gray-700 font-semibold rounded-lg shadow-md hover:bg-gray-100">
-            Check
-          </button>
-          <button className="w-40 px-6 py-3 text-sm sm:text-base bg-gray-100 text-gray-700 font-semibold rounded-lg shadow-md hover:bg-gray-200">
-            Learn More
-          </button>
+          {/* Buttons */}
+          <div className="mt-10 flex flex-wrap gap-20">
+            <button className="w-50 px-6 py-3 text-sm sm:text-base outline outline-white text-white font-semibold rounded-lg shadow-md hover:bg-gray-100">
+              Check
+            </button>
+            <button className="w-50 px-6 py-3 text-sm sm:text-base bg-gray-100 text-gray-700 font-semibold rounded-lg shadow-md hover:bg-gray-200">
+              Learn More
+            </button>
+          </div>
         </div>
       </div>
 
-      {/*Second Section*/}
+      {/* Second Section */}
       <div className="relative w-full bg-gray-50 py-28 px-4 sm:px-8 lg:px-16 flex items-center">
         <div className="max-w-full mx-auto grid lg:grid-cols-2 gap-8">
           {/* Image Section */}
@@ -90,7 +90,7 @@ export default function Example() {
                 <div className="p-4 bg-indigo-100 rounded-full">
                   <svg
                     className="w-6 h-6 text-indigo-600"
-                    xmlns="http://www.w.org/2000/svg"
+                    xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -143,6 +143,71 @@ export default function Example() {
           </div>
         </div>
       </div>
+
+      {/* Bottom Section */}
+      <div className="bg-white py-12">
+        {/* Title and Subtitle Section */}
+        <div className="text-center mb-12">
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">
+            Discover Your Lottery Results <br/> Instantly
+          </h1>
+          <p className="mt-2 text-base sm:text-lg text-gray-600">
+          Our website offers a user-friendly experience for checking lottery results. Access the <br/> latest updates anytime, anywhere with our mobile-friendly design.
+          </p>
+        </div>
+
+        {/* Columns Section */}
+        <div className="flex flex-wrap justify-between text-center m-6 pt-10">
+          {/* First Column */}
+          <div className="flex flex-col items-center flex-1 px-4 mb-8">
+            <img
+              src="icon1.png"
+              alt="Icon 1"
+              className="w-12 h-12 mb-4"
+            />
+            <h3 className="text-lg font-semibold text-gray-900">Easy Navigation for Quick <br/> Results</h3>
+            <p className="text-sm text-gray-600 mt-4">Finding your lottery results has never been easier.</p>
+          </div>
+
+          {/* Second Column */}
+          <div className="flex flex-col items-center flex-1 px-4 mb-8">
+            <img
+              src="icon2.png"
+              alt="Icon 2"
+              className="w-12 h-12 mb-4"
+            />
+            <h3 className="text-lg font-semibold text-gray-900">Stay Updated with Past <br/> Results Archive</h3>
+            <p className="text-sm text-gray-600 mt-4">Explore our comprehensive archive for previous draws.</p>
+          </div>
+
+          {/* Third Column */}
+          <div className="flex flex-col items-center flex-1 px-4 mb-8">
+            <img
+              src="icon3.png"
+              alt="Icon 3"
+              className="w-12 h-12 mb-4"
+            />
+            <h3 className="text-lg font-semibold text-gray-900">Search Function for Your <br/> Convenience</h3>
+            <p className="text-sm text-gray-600 mt-4">Quickly find specific results using our search tool.</p>
+          </div>
+        </div>
+      
+        <div className="flex justify-center space-x-4 gap-10 mt-10">
+      {/* Learn More Button */}
+      <button className="px-6 py-3 text-sm sm:text-base text-gray-400 font-semibold rounded-lg  border border-gray-400  hover:text-gray-500 hover:border-gray-500">
+        Learn More
+      </button>
+
+      {/* Sign Up Button */}
+      <button className="px-6 py-3 text-sm sm:text-base text-gray-400 font-semibold rounded-lg  hover:text-gray-500">
+      Sign Up
+    </button>
+
+    </div>
+      
+
+      </div>
+
     </div>
   );
 }
