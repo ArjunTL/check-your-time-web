@@ -80,7 +80,7 @@ export default function Example() {
             </h3>
             <p className="mt-14 text-sm sm:text-base lg:text-lg text-gray-600 leading-relaxed">
               Stay up-to-date with the most recent lottery results. Check your
-              numbers and see if you're a winner!
+              numbers and see if you&aposre a winner!
             </p>
 
             {/* Two-Column Structure */}
@@ -105,7 +105,7 @@ export default function Example() {
                 </div>
                 <div>
                   <h4 className="text-lg font-semibold text-gray-900">
-                    Today's Results
+                    Today&aposs Results
                   </h4>
                   <p className="mt-1 text-sm text-gray-600">
                     Discover the latest winning numbers for today.
