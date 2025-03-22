@@ -230,7 +230,7 @@ export default function Example() {
       
         <div className="flex justify-center space-x-4 gap-10 mt-10">
       {/* Learn More Button */}
-      <button className="px-6 py-3 text-sm sm:text-base text-gray-400 font-semibold rounded-lg  border border-gray-400  hover:text-gray-500 hover:border-gray-500">
+      <button className="px-6 py-3 text-sm sm:text-base text-gray-400 font-semibold border border-gray-400  hover:text-gray-500 hover:border-gray-500">
         Learn More
       </button>
 
