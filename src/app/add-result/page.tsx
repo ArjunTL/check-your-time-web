@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, ChangeEvent } from "react";
-import { PhotoIcon } from "@heroicons/react/24/solid";
-import { ChevronDownIcon } from "@heroicons/react/16/solid";
+import { useState, ChangeEvent, useRef } from "react";
+
 
 type PrizeWinner = {
   ticket: string;
@@ -66,6 +65,62 @@ export default function AddResultPage() {
 
   const [form, setForm] = useState<FormData>(initialFormState);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const [isExtracting, setIsExtracting] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [pdfError, setPdfError] = useState("");
+
+  const handlePdfUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.type !== "application/pdf") {
+      setPdfError("Please upload a valid PDF file");
+      return;
+    }
+
+    setPdfFile(file);
+    setIsExtracting(true);
+    setPdfError("");
+
+    try {
+      const base64 = await convertToBase64(file);
+      const response = await fetch("/api/extract-pdf", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ pdfBase64: base64 }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to extract data from PDF");
+      }
+
+      const data = await response.json();
+      setForm((prev) => ({
+        ...prev,
+        ...data,
+        prizes: {
+          ...prev.prizes,
+          ...data.prizes,
+        },
+      }));
+    } catch (error) {
+      console.error("PDF extraction failed:", error);
+      setPdfError(
+        "Failed to extract data from PDF. Please fill the form manually."
+      );
+    } finally {
+      setIsExtracting(false);
+    }
+  };
+  const convertToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = (error) => reject(error);
+    });
+  };
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -132,48 +187,51 @@ export default function AddResultPage() {
     }));
   };
 
-  const handleRemoveWinner = (prizeCategory: keyof FormData['prizes'], index: number) => {
+  const handleRemoveWinner = (
+    prizeCategory: keyof FormData["prizes"],
+    index: number
+  ) => {
     setForm((prev) => {
       // Safely access winners with fallback to empty array
       const currentWinners = prev.prizes[prizeCategory].winners || [];
       const newWinners = [...currentWinners];
       newWinners.splice(index, 1);
-      
+
       return {
         ...prev,
         prizes: {
           ...prev.prizes,
           [prizeCategory]: {
             ...prev.prizes[prizeCategory],
-            winners: newWinners
-          }
-        }
+            winners: newWinners,
+          },
+        },
       };
     });
   };
 
   const handleWinnerChange = (
-    prizeCategory: keyof FormData['prizes'],
+    prizeCategory: keyof FormData["prizes"],
     index: number,
     field: keyof PrizeWinner,
     value: string
   ) => {
-    setForm(prev => {
+    setForm((prev) => {
       const updatedWinners = [...(prev.prizes[prizeCategory].winners || [])];
       updatedWinners[index] = {
         ...updatedWinners[index],
-        [field]: value
+        [field]: value,
       };
-      
+
       return {
         ...prev,
         prizes: {
           ...prev.prizes,
           [prizeCategory]: {
             ...prev.prizes[prizeCategory],
-            winners: updatedWinners
-          }
-        }
+            winners: updatedWinners,
+          },
+        },
       };
     });
   };
@@ -365,35 +423,37 @@ export default function AddResultPage() {
 
             <div className="col-span-full">
               <label
-                htmlFor="cover-photo"
+                htmlFor="pdf-upload"
                 className="block text-sm/6 font-medium text-gray-900"
               >
-                Result PDF Upload
+                Upload Result PDF (Auto-fill form)
               </label>
-              <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                <div className="text-center">
-                  <PhotoIcon
-                    aria-hidden="true"
-                    className="mx-auto size-12 text-gray-300"
-                  />
-                  <div className="mt-4 flex text-sm/6 text-gray-600">
-                    <label
-                      htmlFor="file-upload"
-                      className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-                    >
-                      <span>Upload a file</span>
-                      <input
-                        id="file-upload"
-                        name="file-upload"
-                        type="file"
-                        accept=".pdf"
-                        className="sr-only"
-                      />
-                    </label>
-                    <p className="pl-1">or drag and drop</p>
-                  </div>
-                  <p className="text-xs/5 text-gray-600">PDF up to 10MB</p>
-                </div>
+              <div className="mt-2 flex items-center gap-4">
+                <input
+                  id="pdf-upload"
+                  ref={fileInputRef}
+                  type="file"
+                  accept="application/pdf"
+                  onChange={handlePdfUpload}
+                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                />
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()} // This triggers the file input click
+                  className="rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
+                  disabled={isExtracting}
+                >
+                  {isExtracting ? "Extracting..." : "Select PDF"}
+                </button>
+                {pdfError && (
+                  <p className="text-sm text-red-500 mt-1">{pdfError}</p>
+                )}
+                {pdfFile && (
+                  <span className="text-sm text-gray-600">
+                    {pdfFile.name}
+                    {isExtracting && " (processing...)"}
+                  </span>
+                )}
               </div>
             </div>
           </div>

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { db, collection, addDoc, getDocs, doc, deleteDoc } from "@/firebaseConfig";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useRouter } from "next/navigation";
 
 
 export default function LotteryViewPage() {
@@ -21,6 +22,8 @@ export default function LotteryViewPage() {
   const [showModal, setShowModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [jsonData, setJsonData] = useState("");
+  const router = useRouter();
+
 
   useEffect(() => {
     fetchLotteryResults();
@@ -86,7 +89,7 @@ export default function LotteryViewPage() {
 
       {/* ✅ Add Lottery Result Button */}
       <button
-        onClick={() => setShowModal(true)}
+         onClick={() => router.push("/add-result")}
         className="bg-green-500 text-white p-3 rounded mb-4"
       >
         Add Lottery Result

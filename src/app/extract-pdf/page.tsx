@@ -1,5 +1,5 @@
-// pages/extract-pdf.js
-import PdfUploader from '../components/PdfUploader';
+// src/app/extract-pdf/page.tsx
+import PdfUploader from '../../../components/PdfUploader';
 
 export default function ExtractPdfPage() {
   return (

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { auth, } from "../../firebaseConfig";
 import { onAuthStateChanged, signOut, User } from "firebase/auth";
 import { useRouter } from "next/navigation";
+import PdfUploader  from "../../../components/PdfUploader";
 
 export default function DashboardPage() {
   const [user, setUser] = useState<User | null>(null);  // ✅ Fixed Type
@@ -37,6 +38,8 @@ export default function DashboardPage() {
       >
         View Lottery Results
       </button>
+      <PdfUploader />
+
     </div>
   );
 }

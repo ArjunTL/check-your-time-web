@@ -1,14 +1,15 @@
-// components/PdfUploader.js
+'use client';
+
 import { useState } from 'react';
 
 export default function PdfUploader() {
-  const [file, setFile] = useState(null);
-  const [extractedText, setExtractedText] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [file, setFile] = useState<File | null>(null);
+  const [extractedText, setExtractedText] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
     if (selectedFile?.type === 'application/pdf') {
       setFile(selectedFile);
       setError(null);
@@ -17,13 +18,13 @@ export default function PdfUploader() {
       setError('Please select a valid PDF file');
     }
   };
-
   const handleUpload = async () => {
+    console.log("PDF Upload triggered"); 
     if (!file) {
       setError('Please select a PDF file first');
       return;
     }
-
+  
     setLoading(true);
     setError(null);
     setExtractedText('');
@@ -42,25 +43,32 @@ export default function PdfUploader() {
       });
       
       const data = await response.json();
+      console.log(response,"res")
       
       if (!response.ok) {
         throw new Error(data.message || 'Error processing PDF');
       }
       
       setExtractedText(data.text);
-    } catch (err) {
+    } catch (err: unknown) {
       console.error('Upload error:', err);
-      setError(err.message || 'Error uploading and processing PDF');
+      
+      // Type narrowing to handle errors properly
+      if (err instanceof Error) {
+        setError(err.message || 'Error uploading and processing PDF');
+      } else {
+        setError('Unknown error occurred during file upload');
+      }
     } finally {
       setLoading(false);
     }
   };
 
-  const convertToBase64 = (file) => {
+  const convertToBase64 = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
+      reader.onload = () => resolve(reader.result as string);
       reader.onerror = (error) => reject(error);
     });
   };
