@@ -1,4 +1,4 @@
-// lib/custom-pdf-parse.js
+// lib/custom-pdf-parse.js 
 const pdfParse = require('pdf-parse'); // Import the pdf-parse library
 
 async function parsePDF(pdfBuffer) {
