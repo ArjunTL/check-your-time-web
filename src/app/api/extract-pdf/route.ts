@@ -1,7 +1,7 @@
 // app/api/extract-pdf/route.ts
 import { NextResponse } from 'next/server';
-import pdf from 'pdf-parse';
-
+// import pdf from 'pdf-parse';
+import parsePDF from '../../../../custom-pdf-parse';
 interface PrizeWinner {
   ticket: string;
   location?: string;
@@ -41,7 +41,7 @@ export async function POST(request: Request) {
   try {
     const { pdfBase64 } = await request.json();
     const pdfBuffer = Buffer.from(pdfBase64.split(',')[1], 'base64');
-    const data = await pdf(pdfBuffer);
+    const data = await parsePDF(pdfBuffer);
     
     const extractedData = extractLotteryData(data.text);
     console.log("Extracted text:", data.text);
