@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, ChangeEvent, useRef } from "react";
+import { db, collection, addDoc } from "@/firebaseConfig";
 
 
 type PrizeWinner = {
@@ -282,21 +283,22 @@ export default function AddResultPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
-
+  
     try {
-      console.log(form);
-      // const res = await fetch("/api/save-result", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(form),
-      // });
-      // const data = await res.json();
-      // alert("Lottery result saved successfully!");
+      const resultData = {
+        ...form,
+        createdAt: new Date().toISOString(), // Optional: for tracking
+      };
+  
+      await addDoc(collection(db, "lottery_results"), resultData);
+      alert("Lottery result saved successfully!");
+      setForm(initialFormState); // Optional: reset form after saving
     } catch (err) {
-      console.error(err);
+      console.error("Firestore Save Error:", err);
       alert("Failed to save lottery result");
     }
   };
+  
 
   return (
     <form onSubmit={handleSubmit}>
