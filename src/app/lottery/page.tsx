@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { db, collection, addDoc, getDocs, doc, deleteDoc } from "@/firebaseConfig";
+import { db, collection, getDocs, doc, deleteDoc } from "@/firebaseConfig";
 import { useRouter } from "next/navigation";
 
 export default function LotteryViewPage() {
