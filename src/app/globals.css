@@ -28,3 +28,9 @@ body {
 main{
   padding: 0;
 }
+
+@theme
+{
+  --color-Primary:#b7be4e;
+  --color-primary-dark:#9ca644;
+}

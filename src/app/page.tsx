@@ -1,4 +1,6 @@
 import React from "react";
+import { ChevronRightIcon } from '@heroicons/react/20/solid'
+import { StarIcon } from '@heroicons/react/20/solid'
 
 const stats = [
   { id: 1, name: "Active Users", value: "500+" },
@@ -7,243 +9,162 @@ const stats = [
   { id: 4, name: "Stay Anonymous", value: "100%" },
 ];
 
+const files = [
+  {
+    title: 'Seed 1',
+    size: '100',
+    source:
+      '/Home Img.png',
+  },
+  {
+    title: 'Seed 2',
+    size: '200',
+    source:
+      '/Home Img 2.png',
+  },
+  {
+    title: 'Seed 3',
+    size: '300',
+    source:
+      '/Home Img 3.png',
+  },
+  {
+    title: 'Seed 3',
+    size: '300',
+    source:
+      '/Home Img 4.png',
+  },
+  // More files...
+]
+
+
 export default function Example() {
   return (
-    <div className="min-h-screen bg-white">
-      {/* First Section with Background */}
-      <div className="relative min-h-screen flex flex-col justify-center items-start overflow-hidden">
-        {/* Full-Screen Background with Subtle Gradient */}
-        <div className="absolute inset-0">
-          <img
-            alt="Background"
-            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2850&q=80"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-transparent opacity-50"></div>
-        </div>
+    <div className="bg-white">
+      <div className="relative isolate overflow-hidden bg-linear-to-b from-indigo-100/20">
+        <div className="mx-auto max-w-7xl pt-10 pb-24 sm:pb-32 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:px-0 lg:py-40">
+          <div className="px-6 lg:px-0 lg:pt-4">
+            <div className="mx-auto max-w-2xl">
+              <div className="max-w-lg">
+                     
+              <h1 className="mt-10 text-5xl font-semibold tracking-widest text-pretty text-gray-900 sm:text-7xl">
+              100% ORGANIC SEEDS
+              </h1>
 
-        {/* Main Content Section Inside Gradient */}
-        <div className="relative z-10 px-6 sm:px-12 lg:px-24 max-w-screen-lg py-16 sm:py-24 lg:py-20">
-          <p className="mt-4 text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-tight tracking-tight text-white">
-            Trusted by thousands of People <br /> in Kerala
-          </p>
-          <p className="mt-6 text-sm sm:text-base lg:text-lg xl:text-xl text-gray-300 leading-relaxed">
-            Trusted by thousands, our app delivers fast and accurate lottery
-            results. Your journey to winning starts here.
-          </p>
-
-          {/* Stats Section */}
-          <dl className="mt-12 grid grid-cols-1 gap-y-8 sm:grid-cols-2 sm:gap-x-8">
-            {stats.map((stat) => (
-              <div
-                key={stat.id}
-                className="flex flex-col gap-y-2 border-l-4 border-white pl-4"
-              >
-                <dt className="text-sm sm:text-base lg:text-lg font-medium text-gray-300">
-                  {stat.name}
-                </dt>
-                <dd className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white">
-                  {stat.value}
-                </dd>
-              </div>
-            ))}
-          </dl>
-
-          {/* Buttons */}
-          <div className="mt-10 flex flex-wrap gap-20">
-            <button className="w-50 px-6 py-3 text-sm sm:text-base outline outline-white text-white font-semibold rounded-lg shadow-md hover:bg-gray-100">
-              Check
-            </button>
-            <button className="w-50 px-6 py-3 text-sm sm:text-base bg-gray-100 text-gray-700 font-semibold rounded-lg shadow-md hover:bg-gray-200">
-              Learn More
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Second Section */}
-      <div className="relative w-full bg-gray-50 py-28 px-4 sm:px-8 lg:px-16 flex items-center">
-        <div className="max-w-full mx-auto grid lg:grid-cols-2 gap-8">
-          {/* Image Section */}
-          <div className="flex justify-center">
-            <img
-              alt="Placeholder Image"
-              src="https://placehold.co/600x400/EEE/31343C"
-              className="w-full max-w-lg rounded-lg shadow-lg"
-            />
-          </div>
-
-          {/* Content Section */}
-          <div className="flex flex-col justify-center">
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-gray-900">
-              Stay Updated with the Latest Lottery Results at Your Fingertips
-            </h3>
-            <p className="mt-14 text-sm sm:text-base lg:text-lg text-gray-600 leading-relaxed">
-              Stay up-to-date with the most recent lottery results. Check your
-              numbers and see if you&aposre a winner!
-            </p>
-
-            {/* Two-Column Structure */}
-            <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {/* Card 1 */}
-              <div className="flex items-start gap-x-4">
-                <div className="p-4 bg-indigo-100 rounded-full">
-                  <svg
-                    className="w-6 h-6 text-indigo-600"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
+                <p className="mt-8 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8">
+                  Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.
+                </p>
+                <div className="mt-10 flex items-center gap-x-6">
+                  <a
+                    href="#"
+                    className="rounded-md bg-Primary w-32 text-center px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-primary-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M5 12h14M12 5l7 7-7 7"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="text-lg font-semibold text-gray-900">
-                    Today&aposs Results
-                  </h4>
-                  <p className="mt-1 text-sm text-gray-600">
-                    Discover the latest winning numbers for today.
-                  </p>
-                </div>
-              </div>
-              {/* Card 2 */}
-              <div className="flex items-start gap-x-4">
-                <div className="p-4 bg-purple-100 rounded-full">
-                  <svg
-                    className="w-6 h-6 text-indigo-600"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M12 4v16m8-8H4"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="text-lg font-semibold text-gray-900">
-                    Upcoming Draws
-                  </h4>
-                  <p className="mt-1 text-sm text-gray-600">
-                    Stay informed about the next exciting lottery draws.
-                  </p>
+                    Products
+                  </a>
+                  
                 </div>
               </div>
             </div>
           </div>
+          <div className="mt-20 sm:mt-24 md:mx-auto md:max-w-2xl lg:mx-0 lg:mt-0 lg:w-screen">
+            <div
+              className="absolute inset-y-0 right-1/2 -z-10 -mr-10 w-[200%] skew-x-[-30deg] bg-white shadow-xl ring-1 shadow-indigo-600/10 ring-indigo-50 md:-mr-20 lg:-mr-36"
+              aria-hidden="true"
+            />
+            <div className=" md:rounded-3xl inline-block overflow-hidden">
+            
+              <div
+                className="absolute -inset-y-px left-1/2 -z-10 ml-10 w-[200%] skew-x-[-30deg] bg-indigo-100 opacity-20 ring-1 ring-white ring-inset md:ml-20 lg:ml-36"
+                aria-hidden="true"
+              />
+              
+              {/* Add Images in Here */}
+              <img src="Logo.png" className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl" />
+           
+          </div>
+
+          </div>
         </div>
+        <div className="absolute inset-x-0 bottom-0 -z-10 h-24 bg-linear-to-t from-white sm:h-32" />
       </div>
 
-      {/* Bottom Section */}
-      <div className="bg-white py-12">
-        {/* Title and Subtitle Section */}
-        <div className="text-center mb-12">
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">
-            Discover Your Lottery Results <br/> Instantly
-          </h1>
-          <p className="mt-2 text-base sm:text-lg text-gray-600">
-          Our website offers a user-friendly experience for checking lottery results. Access the <br/> latest updates anytime, anywhere with our mobile-friendly design.
-          </p>
-        </div>
+      <div className="mx-auto max-w-7xl px-6 lg:px-0 mt-10">
 
-        {/* Columns Section */}
-        <div className="flex flex-wrap justify-between text-center m-6 pt-10">
-          {/* First Column */}
-          <div className="flex flex-col items-center flex-1 px-4 mb-8">
-           
-           {/* SVG Icon */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-12 h-12 mb-4 text-gray-900"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-            
-            <h3 className="text-lg font-semibold text-gray-900">Easy Navigation for Quick <br/> Results</h3>
-            <p className="text-sm text-gray-600 mt-4">Finding your lottery results has never been easier.</p>
-          </div>
+      <div className="flex items-center mb-16 justify-center">
+  <div className="flex-grow h-px bg-gray-300 mr-6"></div> {/* Line on the left */}
+  <h2 className="text-xl font-semibold text-Primary mx-6 mb-5 whitespace-nowrap">Best Sellers</h2> {/* Title centered */}
+  <div className="flex-grow h-px bg-gray-300 ml-6"></div> {/* Line on the right */}
+</div>
 
-          {/* Second Column */}
-          <div className="flex flex-col items-center flex-1 px-4 mb-8">
-           
-            {/* SVG Icon */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-12 h-12 mb-4 text-gray-900"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
 
-            <h3 className="text-lg font-semibold text-gray-900">Stay Updated with Past <br/> Results Archive</h3>
-            <p className="text-sm text-gray-600 mt-4">Explore our comprehensive archive for previous draws.</p>
-          </div>
-
-          {/* Third Column */}
-          <div className="flex flex-col items-center flex-1 px-4 mb-8">
-            
-            {/* SVG Icon */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-12 h-12 mb-4 text-gray-900"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-
-            <h3 className="text-lg font-semibold text-gray-900">Search Function for Your <br/> Convenience</h3>
-            <p className="text-sm text-gray-600 mt-4">Quickly find specific results using our search tool.</p>
-          </div>
-        </div>
-      
-        <div className="flex justify-center space-x-4 gap-10 mt-10">
-      {/* Learn More Button */}
-      <button className="px-6 py-3 text-sm sm:text-base text-gray-400 font-semibold border border-gray-400  hover:text-gray-500 hover:border-gray-500">
-        Learn More
-      </button>
-
-      {/* Sign Up Button */}
-      <button className="px-6 py-3 text-sm sm:text-base text-gray-400 font-semibold rounded-lg  hover:text-gray-500">
-      Sign Up
-    </button>
-
-    </div>
-      
-
+      <ul role="list" className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
+  {files.map((file) => (
+    <li key={file.source} className="relative text-center">
+      <div className="group overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-Primary focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
+        <img
+          alt=""
+          src={file.source}
+          className="pointer-events-none aspect-10/7 object-cover group-hover:opacity-75"
+        />
+        <button type="button" className="absolute inset-0 focus:outline-hidden">
+          <span className="sr-only">View details for {file.title}</span>
+        </button>
       </div>
 
-    </div>
+      {/* Wrapper to make the background width same as the image */}
+      <div className="mt-2 inline-block w-full max-w-full">
+        <div className="bg-Primary rounded-2xl py-3 px-6  text-center mt-4">
+          <p className="pointer-events-none block text-lg  font-bold text-white">{file.title}</p> {/* Increased font size */}
+          {/*<p className="pointer-events-none block text-sm font-medium text-black-800">{file.size}</p>*/}
+        </div>
+      </div>
+    </li>
+  ))}
+</ul>
+
+</div>
+
+<div className="bg-gray-100 w-full pt-10 sm:pt-10 pb-24 sm:pb-32 mt-20">
+
+  {/* Title Centered */}
+  <h2 className="text-3xl font-semibold text-gray-900 text-center mb-15">
+      Our Happy Customers
+    </h2>
+
+  <section className="px-6 lg:px-8">
+    <figure className="mx-auto max-w-2xl">
+      <p className="sr-only">5 out of 5 stars</p>
+      <div className="flex gap-x-1 text-Primary">
+        <StarIcon aria-hidden="true" className="size-5 flex-none" />
+        <StarIcon aria-hidden="true" className="size-5 flex-none" />
+        <StarIcon aria-hidden="true" className="size-5 flex-none" />
+        <StarIcon aria-hidden="true" className="size-5 flex-none" />
+        <StarIcon aria-hidden="true" className="size-5 flex-none" />
+      </div>
+      <blockquote className="mt-10 text-xl/8 font-semibold tracking-tight text-gray-900 sm:text-2xl/9">
+        <p>
+          “Qui dolor enim consectetur do et non ex amet culpa sint in ea non dolore. Enim minim magna anim id minim eu
+          cillum sunt dolore aliquip. Amet elit laborum culpa irure incididunt adipisicing culpa amet officia
+          exercitation. Eu non aute velit id velit Lorem elit anim pariatur.”
+        </p>
+      </blockquote>
+      <figcaption className="mt-10 flex items-center gap-x-6">
+        <img
+          alt=""
+          src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=1024&h=1024&q=80"
+          className="size-12 rounded-full bg-gray-50"
+        />
+        <div className="text-sm/6">
+          <div className="font-semibold text-gray-900">Judith Black</div>
+          <div className="mt-0.5 text-gray-600">CEO of Workcation</div>
+        </div>
+      </figcaption>
+    </figure>
+  </section>
+</div>
+
+</div>
+
+
   );
 }
