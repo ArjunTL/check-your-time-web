@@ -60,12 +60,25 @@ export default function PublicResultPage() {
 
   if (!result) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-gray-700">
-        Result not found
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="rounded-2xl bg-white px-6 py-5 text-center shadow-sm">
+          <p className="text-sm font-semibold text-gray-800">
+            Result not found
+          </p>
+          <p className="mt-1 text-xs text-gray-500">
+            Please check the link or try again from the results page.
+          </p>
+          <a
+            href="/result"
+            className="mt-4 inline-flex items-center justify-center rounded-full bg-emerald-600 px-4 py-2 text-xs font-semibold text-white hover:bg-emerald-500"
+          >
+            Back to Results
+          </a>
+        </div>
       </div>
     );
   }
 
-  // isAdmin = false here
+  // Public view (no isAdmin flag)
   return <ResultView result={result} />;
 }

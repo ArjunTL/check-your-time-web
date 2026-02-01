@@ -94,7 +94,6 @@ export default function LotteryViewPage() {
       "Are you sure you want to delete this record?",
     );
     if (!confirmDelete) return;
-
     try {
       await deleteDoc(doc(db, "lottery_results", id));
       setLotteryResults((prev) => prev.filter((r) => r.id !== id));
