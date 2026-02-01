@@ -1,3 +1,5 @@
+// src/firebaseConfig.ts
+
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import {
@@ -6,6 +8,7 @@ import {
   addDoc,
   getDocs,
   doc,
+  getDoc,
   updateDoc,
   deleteDoc,
 } from "firebase/firestore";
@@ -20,17 +23,12 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-// Initialize Firebase
+// Initialize Firebase app (client-side)
+const app = initializeApp(firebaseConfig);
+
+// Auth & Firestore instances
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 
-export {
-  collection,
-  addDoc,
-  getDocs,
-  getDoc,
-  doc,
-  getDoc,
-  updateDoc,
-  deleteDoc,
-};
+// Re‑export Firestore helpers so you can import from "@/firebaseConfig"
+export { collection, addDoc, getDocs, doc, getDoc, updateDoc, deleteDoc };
