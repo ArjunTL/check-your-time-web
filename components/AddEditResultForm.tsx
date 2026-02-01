@@ -589,80 +589,89 @@ export default function AddEditResultForm({ id }: AddEditResultFormProps) {
               </div>
 
               {form.prizes[prizeCategory as keyof FormData["prizes"]].ticket !==
-                undefined && (
-                <div className="sm:col-span-3">
-                  <label
-                    htmlFor={`${prizeCategory}_ticket`}
-                    className="block text-sm/6 font-medium text-gray-900"
-                  >
-                    Ticket Number
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id={`${prizeCategory}_ticket`}
-                      name={`${prizeCategory}_ticket`}
-                      type="text"
-                      placeholder="e.g. WJ 209581"
-                      value={
-                        form.prizes[prizeCategory as keyof FormData["prizes"]]
-                          .ticket
-                      }
-                      onChange={(e) =>
-                        handlePrizeChange(
-                          prizeCategory as keyof FormData["prizes"],
-                          "ticket",
-                          e.target.value,
-                        )
-                      }
-                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                    />
-                    {errors[`${prizeCategory}_ticket`] && (
-                      <p className="text-sm text-red-500">
-                        {errors[`${prizeCategory}_ticket`]}
-                      </p>
-                    )}
+                undefined &&
+                (!form.prizes[prizeCategory as keyof FormData["prizes"]]
+                  .winners ||
+                  form.prizes[prizeCategory as keyof FormData["prizes"]].winners
+                    ?.length === 0) && (
+                  <div className="sm:col-span-3">
+                    <label
+                      htmlFor={`${prizeCategory}_ticket`}
+                      className="block text-sm/6 font-medium text-gray-900"
+                    >
+                      Ticket Number
+                    </label>
+                    <div className="mt-2">
+                      <input
+                        id={`${prizeCategory}_ticket`}
+                        name={`${prizeCategory}_ticket`}
+                        type="text"
+                        placeholder="e.g. WJ 209581"
+                        value={
+                          form.prizes[prizeCategory as keyof FormData["prizes"]]
+                            .ticket
+                        }
+                        onChange={(e) =>
+                          handlePrizeChange(
+                            prizeCategory as keyof FormData["prizes"],
+                            "ticket",
+                            e.target.value,
+                          )
+                        }
+                        className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                      />
+                      {errors[`${prizeCategory}_ticket`] && (
+                        <p className="text-sm text-red-500">
+                          {errors[`${prizeCategory}_ticket`]}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
 
               {form.prizes[prizeCategory as keyof FormData["prizes"]]
-                .location !== undefined && (
-                <div className="sm:col-span-3">
-                  <label
-                    htmlFor={`${prizeCategory}_location`}
-                    className="block text-sm/6 font-medium text-gray-900"
-                  >
-                    Location
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id={`${prizeCategory}_location`}
-                      name={`${prizeCategory}_location`}
-                      type="text"
-                      placeholder="e.g. IDUKKI"
-                      value={
-                        form.prizes[prizeCategory as keyof FormData["prizes"]]
-                          .location
-                      }
-                      onChange={(e) =>
-                        handlePrizeChange(
-                          prizeCategory as keyof FormData["prizes"],
-                          "location",
-                          e.target.value,
-                        )
-                      }
-                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                    />
-                    {errors[`${prizeCategory}_location`] && (
-                      <p className="text-sm text-red-500">
-                        {errors[`${prizeCategory}_location`]}
-                      </p>
-                    )}
+                .location !== undefined &&
+                (!form.prizes[prizeCategory as keyof FormData["prizes"]]
+                  .winners ||
+                  form.prizes[prizeCategory as keyof FormData["prizes"]].winners
+                    ?.length === 0) && (
+                  <div className="sm:col-span-3">
+                    <label
+                      htmlFor={`${prizeCategory}_location`}
+                      className="block text-sm/6 font-medium text-gray-900"
+                    >
+                      Location
+                    </label>
+                    <div className="mt-2">
+                      <input
+                        id={`${prizeCategory}_location`}
+                        name={`${prizeCategory}_location`}
+                        type="text"
+                        placeholder="e.g. IDUKKI"
+                        value={
+                          form.prizes[prizeCategory as keyof FormData["prizes"]]
+                            .location
+                        }
+                        onChange={(e) =>
+                          handlePrizeChange(
+                            prizeCategory as keyof FormData["prizes"],
+                            "location",
+                            e.target.value,
+                          )
+                        }
+                        className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                      />
+                      {errors[`${prizeCategory}_location`] && (
+                        <p className="text-sm text-red-500">
+                          {errors[`${prizeCategory}_location`]}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
 
-              {["consolationPrize", "thirdPrize"].includes(prizeCategory) && (
+              {form.prizes[prizeCategory as keyof FormData["prizes"]]
+                .winners !== undefined && (
                 <div className="col-span-full">
                   <label className="block text-sm/6 font-medium text-gray-900">
                     {prizeCategory === "consolationPrize"
@@ -712,7 +721,7 @@ export default function AddEditResultForm({ id }: AddEditResultFormProps) {
                           )}
                         </div>
 
-                        {prizeCategory === "thirdPrize" && (
+                        {prizeCategory !== "consolationPrize" && (
                           <div className="sm:col-span-5">
                             <label
                               htmlFor={`${prizeCategory}_location_${index}`}
