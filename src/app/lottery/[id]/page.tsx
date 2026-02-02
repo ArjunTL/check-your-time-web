@@ -26,19 +26,20 @@ export default function LotteryAdminViewPage() {
           router.push("/lottery");
           return;
         }
-        const data = snap.data() as any;
+        const data = snap.data() as Record<string, unknown>;
         const mapped: LotteryResultViewModel = {
           id: snap.id,
-          lotteryName: data.lotteryName || data.lottery || "",
-          drawNumber: data.drawNumber || "",
-          drawDate: data.drawDate || "",
-          drawTime: data.drawTime || "",
-          location: data.location || "",
-          issuedBy: data.issuedBy || "",
-          issuerTitle: data.issuerTitle || "",
-          nextDrawDate: data.nextDrawDate || "",
-          nextDrawLocation: data.nextDrawLocation || "",
-          prizes: data.prizes,
+          lotteryName:
+            (data.lotteryName as string) || (data.lottery as string) || "",
+          drawNumber: (data.drawNumber as string) || "",
+          drawDate: (data.drawDate as string) || "",
+          drawTime: (data.drawTime as string) || "",
+          location: (data.location as string) || "",
+          issuedBy: (data.issuedBy as string) || "",
+          issuerTitle: (data.issuerTitle as string) || "",
+          nextDrawDate: (data.nextDrawDate as string) || "",
+          nextDrawLocation: (data.nextDrawLocation as string) || "",
+          prizes: data.prizes as LotteryResultViewModel["prizes"],
         };
         setResult(mapped);
       } catch (e) {

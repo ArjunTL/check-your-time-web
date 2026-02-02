@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 const stats = [
   { id: 1, name: "Daily Visitors", value: "5,000+" },
@@ -57,12 +58,12 @@ export default function Home() {
 
           {/* Primary CTAs */}
           <div className="mt-10 flex flex-wrap gap-4">
-            <a
+            <Link
               href="/result"
               className="inline-flex items-center justify-center rounded-lg bg-yellow-300 px-6 py-3 text-sm sm:text-base font-semibold text-emerald-900 shadow-lg shadow-yellow-500/30 transition hover:bg-yellow-200"
             >
               View Latest Results
-            </a>
+            </Link>
             <a
               href="#how-it-works"
               className="inline-flex items-center justify-center rounded-lg border border-emerald-100/70 bg-emerald-900/20 px-6 py-3 text-sm sm:text-base font-semibold text-emerald-50 hover:bg-emerald-900/40"
@@ -188,12 +189,12 @@ export default function Home() {
           </div>
 
           <div className="mt-10 flex justify-center gap-4">
-            <a
+            <Link
               href="/result"
               className="rounded-lg bg-emerald-600 px-6 py-3 text-sm sm:text-base font-semibold text-white shadow-sm hover:bg-emerald-500"
             >
               Open Bhagya Neram
-            </a>
+            </Link>
             <a
               href="#how-it-works"
               className="px-6 py-3 text-sm sm:text-base font-semibold text-gray-500 hover:text-gray-700"

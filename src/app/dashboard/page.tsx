@@ -5,7 +5,6 @@ import { auth } from "../../firebaseConfig";
 import { onAuthStateChanged, signOut, User } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import PdfUploader from "../../../components/PdfUploader";
 import Link from "next/link";
 
 export default function DashboardPage() {
@@ -183,39 +182,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-
-// Dashboard Card Component
-const DashboardCard = ({
-  title,
-  description,
-  icon,
-  onClick,
-  color,
-  iconColor,
-}: {
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-  onClick: () => void;
-  color: string;
-  iconColor?: string;
-}) => (
-  <div
-    onClick={onClick}
-    className={`${color} p-6 rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer hover:-translate-y-1`}
-  >
-    <div className="flex items-center gap-4">
-      <div
-        className={`${iconColor || "text-gray-600"} p-3 rounded-full bg-white shadow`}
-      >
-        {icon}
-      </div>
-      <div>
-        <h3 className="font-bold text-lg text-gray-800">{title}</h3>
-        <p className="text-gray-600 text-sm">{description}</p>
-      </div>
-    </div>
-  </div>
-);
-
-// Navigation Item Component

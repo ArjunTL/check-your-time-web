@@ -67,8 +67,10 @@ export class LotteryParser {
     // Issuer details
     const issuerMatch = text.match(PATTERNS.ISSUER);
     if (issuerMatch) {
-      (parsed as any).issuedBy = issuerMatch[1].trim();
-      (parsed as any).issuerTitle = issuerMatch[2].trim();
+      (parsed as unknown as Record<string, string>).issuedBy =
+        issuerMatch[1].trim();
+      (parsed as unknown as Record<string, string>).issuerTitle =
+        issuerMatch[2].trim();
     }
 
     return parsed;
@@ -95,7 +97,6 @@ export class LotteryParser {
       const current = sortedHeaders[i];
       const next = sortedHeaders[i + 1];
 
-      const start = current.index! + current.length;
       const end = next ? next.index! : text.length;
 
       // Better: pass the FULL text chunk starting from the header start to include amount
@@ -126,8 +127,10 @@ export class LotteryParser {
 
       // Map first winner to root ticket/location for UI compatibility
       if (winners.length > 0) {
-        (prize as any).ticket = winners[0].ticket;
-        (prize as any).location = winners[0].location;
+        (prize as unknown as Record<string, string | undefined>).ticket =
+          winners[0].ticket;
+        (prize as unknown as Record<string, string | undefined>).location =
+          winners[0].location;
       }
 
       return prize;

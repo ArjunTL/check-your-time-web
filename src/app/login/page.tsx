@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
 const firebaseErrors: Record<string, string> = {
@@ -56,10 +55,11 @@ export default function LoginPage() {
     try {
       await signInWithEmailAndPassword(auth, email.trim(), password);
       // getIdTokenResult() called in useEffect above
-    } catch (err: any) {
-      console.error("Login error:", err.code, err.message);
+    } catch (err: unknown) {
+      const error = err as { code?: string; message?: string };
+      console.error("Login error:", error.code, error.message);
       const message =
-        firebaseErrors[err.code] || "Login failed. Please try again.";
+        firebaseErrors[error.code || ""] || "Login failed. Please try again.";
       setError(message);
     } finally {
       setLoading(false);

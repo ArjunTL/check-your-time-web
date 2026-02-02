@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -15,7 +16,7 @@ export default function Header() {
       >
         {/* Brand left */}
         <div className="flex flex-1 items-center gap-2">
-          <a href="/" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2">
             <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-emerald-600 text-lg text-white font-bold shadow-sm">
               BN
             </span>
@@ -27,17 +28,17 @@ export default function Header() {
                 Kerala Lottery Results
               </span>
             </div>
-          </a>
+          </Link>
         </div>
 
         {/* Desktop: Results highlighted, right aligned */}
         <div className="hidden flex-1 items-center justify-end lg:flex">
-          <a
+          <Link
             href="/result"
             className="inline-flex items-center rounded-full bg-emerald-600 px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-500 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
           >
             Results
-          </a>
+          </Link>
         </div>
 
         {/* Mobile menu button */}
@@ -63,14 +64,14 @@ export default function Header() {
         <div className="fixed inset-0 z-40 bg-black/25" />
         <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full max-w-xs overflow-y-auto bg-white px-6 py-6 shadow-xl">
           <div className="flex items-center justify-between">
-            <a href="/" className="-m-1.5 p-1.5 flex items-center gap-2">
+            <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-2">
               <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-600 text-sm text-white font-bold">
                 BN
               </span>
               <span className="text-sm font-semibold text-gray-900">
                 Bhagya Neram
               </span>
-            </a>
+            </Link>
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
@@ -82,13 +83,13 @@ export default function Header() {
           </div>
 
           <div className="mt-8 space-y-4">
-            <a
+            <Link
               href="/result"
               onClick={() => setMobileMenuOpen(false)}
               className="block w-full rounded-full bg-emerald-600 px-4 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-emerald-500"
             >
               Results
-            </a>
+            </Link>
           </div>
         </DialogPanel>
       </Dialog>

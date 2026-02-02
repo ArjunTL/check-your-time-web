@@ -246,8 +246,8 @@ const ResultView: FC<ResultViewProps> = ({ result, isAdmin = false }) => {
               { label: "9th Prize", key: "ninthPrize" as const },
               { label: "10th Prize", key: "tenthPrize" as const },
             ].map(({ label, key }) => {
-              // Cast to any to access potentially missing keys safely
-              const prize = (prizes as any)[key];
+              // Cast to access potentially missing keys safely
+              const prize = (prizes as Record<string, Prize | undefined>)[key];
               if (
                 !prize ||
                 (!prize.amount &&
@@ -273,7 +273,7 @@ const ResultView: FC<ResultViewProps> = ({ result, isAdmin = false }) => {
                   {/* Render Winners List (Ticket + Location) if present */}
                   {prize.winners && prize.winners.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
-                      {prize.winners.map((w: any, i: number) => (
+                      {prize.winners.map((w: PrizeWinner, i: number) => (
                         <div
                           key={i}
                           className="flex justify-between items-center bg-gray-50 rounded px-2 py-1 border border-gray-100"

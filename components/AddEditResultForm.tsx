@@ -105,18 +105,20 @@ export default function AddEditResultForm({ id }: AddEditResultFormProps) {
           setLoadingDoc(false);
           return;
         }
-        const data = snap.data() as any;
+        const data = snap.data() as Record<string, unknown>;
         setForm({
-          lottery: data.lotteryName || data.lottery || "",
-          drawNumber: data.drawNumber || "",
-          drawDate: data.drawDate || "",
-          drawTime: data.drawTime || "",
-          location: data.location || "",
-          prizes: data.prizes || initialFormState.prizes,
-          issuedBy: data.issuedBy || "",
-          issuerTitle: data.issuerTitle || "",
-          nextDrawDate: data.nextDrawDate || "",
-          nextDrawLocation: data.nextDrawLocation || "",
+          lottery:
+            (data.lotteryName as string) || (data.lottery as string) || "",
+          drawNumber: (data.drawNumber as string) || "",
+          drawDate: (data.drawDate as string) || "",
+          drawTime: (data.drawTime as string) || "",
+          location: (data.location as string) || "",
+          prizes:
+            (data.prizes as FormData["prizes"]) || initialFormState.prizes,
+          issuedBy: (data.issuedBy as string) || "",
+          issuerTitle: (data.issuerTitle as string) || "",
+          nextDrawDate: (data.nextDrawDate as string) || "",
+          nextDrawLocation: (data.nextDrawLocation as string) || "",
         });
       } catch (err) {
         console.error("Error loading document:", err);
