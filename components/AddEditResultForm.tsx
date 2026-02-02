@@ -39,6 +39,8 @@ type FormData = {
     sixthPrize: Prize;
     seventhPrize: Prize;
     eighthPrize: Prize;
+    ninthPrize: Prize;
+    tenthPrize: Prize;
   };
   issuedBy: string;
   issuerTitle: string;
@@ -62,6 +64,8 @@ const initialFormState: FormData = {
     sixthPrize: { amount: 0, numbers: [] },
     seventhPrize: { amount: 0, numbers: [] },
     eighthPrize: { amount: 0, numbers: [] },
+    ninthPrize: { amount: 0, numbers: [] },
+    tenthPrize: { amount: 0, numbers: [] },
   },
   issuedBy: "",
   issuerTitle: "",
@@ -292,6 +296,20 @@ export default function AddEditResultForm({ id }: AddEditResultFormProps) {
     });
   };
 
+  const PRIZE_ORDER: (keyof FormData["prizes"])[] = [
+    "firstPrize",
+    "secondPrize",
+    "thirdPrize",
+    "consolationPrize",
+    "fourthPrize",
+    "fifthPrize",
+    "sixthPrize",
+    "seventhPrize",
+    "eighthPrize",
+    "ninthPrize",
+    "tenthPrize",
+  ];
+
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     if (!form.lottery) newErrors.lottery = "Lottery type is required";
@@ -300,8 +318,28 @@ export default function AddEditResultForm({ id }: AddEditResultFormProps) {
     if (!form.drawTime) newErrors.drawTime = "Draw time is required";
     if (!form.location) newErrors.location = "Draw location is required";
 
-    Object.keys(form.prizes).forEach((prizeCategory) => {
-      const prize = form.prizes[prizeCategory as keyof FormData["prizes"]];
+    PRIZE_ORDER.forEach((prizeCategory) => {
+      const prize = form.prizes[prizeCategory];
+
+      // Check if the prize is "in use" (has amount OR has any filled fields)
+      const hasAmount = prize.amount > 0;
+      const hasTicket = !!prize.ticket?.trim();
+      const hasLocation = !!prize.location?.trim();
+      const hasNumbers =
+        prize.numbers && prize.numbers.some((n) => !!n?.trim());
+      const hasWinners = prize.winners && prize.winners.length > 0;
+
+      // If completely empty (initial state), skip validation
+      if (
+        !hasAmount &&
+        !hasTicket &&
+        !hasLocation &&
+        !hasNumbers &&
+        !hasWinners
+      ) {
+        return;
+      }
+
       if (prize.amount <= 0)
         newErrors[`${prizeCategory}_amount`] =
           "Prize amount must be greater than 0";
@@ -542,7 +580,7 @@ export default function AddEditResultForm({ id }: AddEditResultFormProps) {
         </div>
 
         {/* Prize Sections */}
-        {Object.keys(form.prizes).map((prizeCategory) => (
+        {PRIZE_ORDER.map((prizeCategory) => (
           <div
             key={prizeCategory}
             className="border-b border-gray-900/10 pb-12"

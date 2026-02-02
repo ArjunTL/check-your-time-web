@@ -39,6 +39,8 @@ interface LotteryResult {
     sixthPrize: Prize;
     seventhPrize: Prize;
     eighthPrize: Prize;
+    ninthPrize?: Prize;
+    tenthPrize?: Prize;
   };
 }
 
