@@ -39,6 +39,8 @@ interface LotteryResult {
     sixthPrize: Prize;
     seventhPrize: Prize;
     eighthPrize: Prize;
+    ninthPrize?: Prize;
+    tenthPrize?: Prize;
   };
 }
 
@@ -63,7 +65,7 @@ export default function LotteryViewPage() {
     try {
       const querySnapshot = await getDocs(collection(db, "lottery_results"));
       const resultsList = querySnapshot.docs.map((d) => {
-        const data = d.data() as any;
+        const data = d.data() as Record<string, unknown>;
         return {
           id: d.id,
           lotteryId: data.lotteryId || "",

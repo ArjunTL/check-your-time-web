@@ -11,6 +11,8 @@ import {
   getDoc,
   updateDoc,
   deleteDoc,
+  query,
+  where,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -31,4 +33,14 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 
 // Re‑export Firestore helpers so you can import from "@/firebaseConfig"
-export { collection, addDoc, getDocs, doc, getDoc, updateDoc, deleteDoc };
+export {
+  collection,
+  addDoc,
+  getDocs,
+  doc,
+  getDoc,
+  updateDoc,
+  deleteDoc,
+  query,
+  where,
+};

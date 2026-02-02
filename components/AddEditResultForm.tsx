@@ -39,6 +39,8 @@ type FormData = {
     sixthPrize: Prize;
     seventhPrize: Prize;
     eighthPrize: Prize;
+    ninthPrize: Prize;
+    tenthPrize: Prize;
   };
   issuedBy: string;
   issuerTitle: string;
@@ -62,6 +64,8 @@ const initialFormState: FormData = {
     sixthPrize: { amount: 0, numbers: [] },
     seventhPrize: { amount: 0, numbers: [] },
     eighthPrize: { amount: 0, numbers: [] },
+    ninthPrize: { amount: 0, numbers: [] },
+    tenthPrize: { amount: 0, numbers: [] },
   },
   issuedBy: "",
   issuerTitle: "",
@@ -101,18 +105,20 @@ export default function AddEditResultForm({ id }: AddEditResultFormProps) {
           setLoadingDoc(false);
           return;
         }
-        const data = snap.data() as any;
+        const data = snap.data() as Record<string, unknown>;
         setForm({
-          lottery: data.lotteryName || data.lottery || "",
-          drawNumber: data.drawNumber || "",
-          drawDate: data.drawDate || "",
-          drawTime: data.drawTime || "",
-          location: data.location || "",
-          prizes: data.prizes || initialFormState.prizes,
-          issuedBy: data.issuedBy || "",
-          issuerTitle: data.issuerTitle || "",
-          nextDrawDate: data.nextDrawDate || "",
-          nextDrawLocation: data.nextDrawLocation || "",
+          lottery:
+            (data.lotteryName as string) || (data.lottery as string) || "",
+          drawNumber: (data.drawNumber as string) || "",
+          drawDate: (data.drawDate as string) || "",
+          drawTime: (data.drawTime as string) || "",
+          location: (data.location as string) || "",
+          prizes:
+            (data.prizes as FormData["prizes"]) || initialFormState.prizes,
+          issuedBy: (data.issuedBy as string) || "",
+          issuerTitle: (data.issuerTitle as string) || "",
+          nextDrawDate: (data.nextDrawDate as string) || "",
+          nextDrawLocation: (data.nextDrawLocation as string) || "",
         });
       } catch (err) {
         console.error("Error loading document:", err);
@@ -292,6 +298,20 @@ export default function AddEditResultForm({ id }: AddEditResultFormProps) {
     });
   };
 
+  const PRIZE_ORDER: (keyof FormData["prizes"])[] = [
+    "firstPrize",
+    "secondPrize",
+    "thirdPrize",
+    "consolationPrize",
+    "fourthPrize",
+    "fifthPrize",
+    "sixthPrize",
+    "seventhPrize",
+    "eighthPrize",
+    "ninthPrize",
+    "tenthPrize",
+  ];
+
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     if (!form.lottery) newErrors.lottery = "Lottery type is required";
@@ -300,8 +320,28 @@ export default function AddEditResultForm({ id }: AddEditResultFormProps) {
     if (!form.drawTime) newErrors.drawTime = "Draw time is required";
     if (!form.location) newErrors.location = "Draw location is required";
 
-    Object.keys(form.prizes).forEach((prizeCategory) => {
-      const prize = form.prizes[prizeCategory as keyof FormData["prizes"]];
+    PRIZE_ORDER.forEach((prizeCategory) => {
+      const prize = form.prizes[prizeCategory];
+
+      // Check if the prize is "in use" (has amount OR has any filled fields)
+      const hasAmount = prize.amount > 0;
+      const hasTicket = !!prize.ticket?.trim();
+      const hasLocation = !!prize.location?.trim();
+      const hasNumbers =
+        prize.numbers && prize.numbers.some((n) => !!n?.trim());
+      const hasWinners = prize.winners && prize.winners.length > 0;
+
+      // If completely empty (initial state), skip validation
+      if (
+        !hasAmount &&
+        !hasTicket &&
+        !hasLocation &&
+        !hasNumbers &&
+        !hasWinners
+      ) {
+        return;
+      }
+
       if (prize.amount <= 0)
         newErrors[`${prizeCategory}_amount`] =
           "Prize amount must be greater than 0";
@@ -542,7 +582,7 @@ export default function AddEditResultForm({ id }: AddEditResultFormProps) {
         </div>
 
         {/* Prize Sections */}
-        {Object.keys(form.prizes).map((prizeCategory) => (
+        {PRIZE_ORDER.map((prizeCategory) => (
           <div
             key={prizeCategory}
             className="border-b border-gray-900/10 pb-12"
@@ -589,80 +629,89 @@ export default function AddEditResultForm({ id }: AddEditResultFormProps) {
               </div>
 
               {form.prizes[prizeCategory as keyof FormData["prizes"]].ticket !==
-                undefined && (
-                <div className="sm:col-span-3">
-                  <label
-                    htmlFor={`${prizeCategory}_ticket`}
-                    className="block text-sm/6 font-medium text-gray-900"
-                  >
-                    Ticket Number
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id={`${prizeCategory}_ticket`}
-                      name={`${prizeCategory}_ticket`}
-                      type="text"
-                      placeholder="e.g. WJ 209581"
-                      value={
-                        form.prizes[prizeCategory as keyof FormData["prizes"]]
-                          .ticket
-                      }
-                      onChange={(e) =>
-                        handlePrizeChange(
-                          prizeCategory as keyof FormData["prizes"],
-                          "ticket",
-                          e.target.value,
-                        )
-                      }
-                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                    />
-                    {errors[`${prizeCategory}_ticket`] && (
-                      <p className="text-sm text-red-500">
-                        {errors[`${prizeCategory}_ticket`]}
-                      </p>
-                    )}
+                undefined &&
+                (!form.prizes[prizeCategory as keyof FormData["prizes"]]
+                  .winners ||
+                  form.prizes[prizeCategory as keyof FormData["prizes"]].winners
+                    ?.length === 0) && (
+                  <div className="sm:col-span-3">
+                    <label
+                      htmlFor={`${prizeCategory}_ticket`}
+                      className="block text-sm/6 font-medium text-gray-900"
+                    >
+                      Ticket Number
+                    </label>
+                    <div className="mt-2">
+                      <input
+                        id={`${prizeCategory}_ticket`}
+                        name={`${prizeCategory}_ticket`}
+                        type="text"
+                        placeholder="e.g. WJ 209581"
+                        value={
+                          form.prizes[prizeCategory as keyof FormData["prizes"]]
+                            .ticket
+                        }
+                        onChange={(e) =>
+                          handlePrizeChange(
+                            prizeCategory as keyof FormData["prizes"],
+                            "ticket",
+                            e.target.value,
+                          )
+                        }
+                        className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                      />
+                      {errors[`${prizeCategory}_ticket`] && (
+                        <p className="text-sm text-red-500">
+                          {errors[`${prizeCategory}_ticket`]}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
 
               {form.prizes[prizeCategory as keyof FormData["prizes"]]
-                .location !== undefined && (
-                <div className="sm:col-span-3">
-                  <label
-                    htmlFor={`${prizeCategory}_location`}
-                    className="block text-sm/6 font-medium text-gray-900"
-                  >
-                    Location
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id={`${prizeCategory}_location`}
-                      name={`${prizeCategory}_location`}
-                      type="text"
-                      placeholder="e.g. IDUKKI"
-                      value={
-                        form.prizes[prizeCategory as keyof FormData["prizes"]]
-                          .location
-                      }
-                      onChange={(e) =>
-                        handlePrizeChange(
-                          prizeCategory as keyof FormData["prizes"],
-                          "location",
-                          e.target.value,
-                        )
-                      }
-                      className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                    />
-                    {errors[`${prizeCategory}_location`] && (
-                      <p className="text-sm text-red-500">
-                        {errors[`${prizeCategory}_location`]}
-                      </p>
-                    )}
+                .location !== undefined &&
+                (!form.prizes[prizeCategory as keyof FormData["prizes"]]
+                  .winners ||
+                  form.prizes[prizeCategory as keyof FormData["prizes"]].winners
+                    ?.length === 0) && (
+                  <div className="sm:col-span-3">
+                    <label
+                      htmlFor={`${prizeCategory}_location`}
+                      className="block text-sm/6 font-medium text-gray-900"
+                    >
+                      Location
+                    </label>
+                    <div className="mt-2">
+                      <input
+                        id={`${prizeCategory}_location`}
+                        name={`${prizeCategory}_location`}
+                        type="text"
+                        placeholder="e.g. IDUKKI"
+                        value={
+                          form.prizes[prizeCategory as keyof FormData["prizes"]]
+                            .location
+                        }
+                        onChange={(e) =>
+                          handlePrizeChange(
+                            prizeCategory as keyof FormData["prizes"],
+                            "location",
+                            e.target.value,
+                          )
+                        }
+                        className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                      />
+                      {errors[`${prizeCategory}_location`] && (
+                        <p className="text-sm text-red-500">
+                          {errors[`${prizeCategory}_location`]}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
 
-              {["consolationPrize", "thirdPrize"].includes(prizeCategory) && (
+              {form.prizes[prizeCategory as keyof FormData["prizes"]]
+                .winners !== undefined && (
                 <div className="col-span-full">
                   <label className="block text-sm/6 font-medium text-gray-900">
                     {prizeCategory === "consolationPrize"
@@ -712,7 +761,7 @@ export default function AddEditResultForm({ id }: AddEditResultFormProps) {
                           )}
                         </div>
 
-                        {prizeCategory === "thirdPrize" && (
+                        {prizeCategory !== "consolationPrize" && (
                           <div className="sm:col-span-5">
                             <label
                               htmlFor={`${prizeCategory}_location_${index}`}

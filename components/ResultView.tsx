@@ -36,6 +36,8 @@ export interface LotteryResultViewModel {
     sixthPrize: Prize;
     seventhPrize: Prize;
     eighthPrize: Prize;
+    ninthPrize?: Prize;
+    tenthPrize?: Prize;
   };
 }
 
@@ -131,18 +133,45 @@ const ResultView: FC<ResultViewProps> = ({ result, isAdmin = false }) => {
                   ₹ {prizes.secondPrize.amount.toLocaleString()}
                 </p>
               </div>
-              <div className="space-y-1 text-sm text-gray-900 md:text-right">
-                <p>
-                  Ticket:{" "}
-                  <span className="font-semibold">
-                    {prizes.secondPrize.ticket || "-"}
-                  </span>
-                </p>
-                <p className="text-xs text-gray-600">
-                  Location: {prizes.secondPrize.location || "-"}
-                </p>
-              </div>
+
+              {/* Single Winner Display */}
+              {(!prizes.secondPrize.winners ||
+                prizes.secondPrize.winners.length === 0) && (
+                <div className="space-y-1 text-sm text-gray-900 md:text-right">
+                  <p>
+                    Ticket:{" "}
+                    <span className="font-semibold">
+                      {prizes.secondPrize.ticket || "-"}
+                    </span>
+                  </p>
+                  <p className="text-xs text-gray-600">
+                    Location: {prizes.secondPrize.location || "-"}
+                  </p>
+                </div>
+              )}
             </div>
+
+            {/* List Winner Display */}
+            {prizes.secondPrize.winners &&
+              prizes.secondPrize.winners.length > 0 && (
+                <div className="mt-4 w-full rounded-2xl bg-white/60 px-3 py-3 text-xs text-gray-900 shadow-sm border border-gray-200">
+                  <div className="space-y-1.5">
+                    {prizes.secondPrize.winners.map((w, i) => (
+                      <div
+                        key={i}
+                        className="flex flex-wrap items-center justify-between border-b border-gray-200 last:border-0 pb-1.5"
+                      >
+                        <span className="font-semibold">{w.ticket}</span>
+                        {w.location && (
+                          <span className="mt-0.5 text-[11px] text-gray-600 md:mt-0">
+                            {w.location}
+                          </span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
           </section>
 
           {/* 3rd Prize – full width, list of winners */}
@@ -214,8 +243,19 @@ const ResultView: FC<ResultViewProps> = ({ result, isAdmin = false }) => {
               { label: "6th Prize", key: "sixthPrize" as const },
               { label: "7th Prize", key: "seventhPrize" as const },
               { label: "8th Prize", key: "eighthPrize" as const },
+              { label: "9th Prize", key: "ninthPrize" as const },
+              { label: "10th Prize", key: "tenthPrize" as const },
             ].map(({ label, key }) => {
-              const prize = prizes[key];
+              // Cast to access potentially missing keys safely
+              const prize = (prizes as Record<string, Prize | undefined>)[key];
+              if (
+                !prize ||
+                (!prize.amount &&
+                  !prize.numbers?.length &&
+                  !prize.winners?.length)
+              )
+                return null;
+
               return (
                 <div
                   key={key}
@@ -229,20 +269,43 @@ const ResultView: FC<ResultViewProps> = ({ result, isAdmin = false }) => {
                       ₹ {prize.amount.toLocaleString()}
                     </p>
                   </div>
-                  <div className="flex flex-wrap gap-2 text-xs">
-                    {prize.numbers?.length ? (
-                      prize.numbers.map((n, i) => (
-                        <span
+
+                  {/* Render Winners List (Ticket + Location) if present */}
+                  {prize.winners && prize.winners.length > 0 ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+                      {prize.winners.map((w: PrizeWinner, i: number) => (
+                        <div
                           key={i}
-                          className="inline-flex items-center justify-center rounded-full border border-green-100 bg-green-50 px-3 py-1 font-mono text-sm text-green-800"
+                          className="flex justify-between items-center bg-gray-50 rounded px-2 py-1 border border-gray-100"
                         >
-                          {n}
-                        </span>
-                      ))
-                    ) : (
-                      <span className="text-gray-300">-</span>
-                    )}
-                  </div>
+                          <span className="font-semibold text-xs text-gray-800">
+                            {w.ticket}
+                          </span>
+                          {w.location && (
+                            <span className="text-[10px] text-gray-500">
+                              {w.location}
+                            </span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    /* Render Numbers List (Chips) */
+                    <div className="flex flex-wrap gap-2 text-xs">
+                      {prize.numbers?.length ? (
+                        prize.numbers.map((n: string, i: number) => (
+                          <span
+                            key={i}
+                            className="inline-flex items-center justify-center rounded-full border border-green-100 bg-green-50 px-3 py-1 font-mono text-sm text-green-800"
+                          >
+                            {n}
+                          </span>
+                        ))
+                      ) : (
+                        <span className="text-gray-300">-</span>
+                      )}
+                    </div>
+                  )}
                 </div>
               );
             })}

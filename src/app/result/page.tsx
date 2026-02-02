@@ -24,12 +24,12 @@ export default function PublicResultsListPage() {
       try {
         const snap = await getDocs(collection(db, "lottery_results"));
         const list: LotteryResultLite[] = snap.docs.map((d) => {
-          const data = d.data() as any;
+          const data = d.data() as Record<string, unknown>;
           return {
             id: d.id,
-            lotteryName: data.lotteryName || data.lottery || "",
-            drawNumber: data.drawNumber || "",
-            drawDate: data.drawDate || "",
+            lotteryName: String(data.lotteryName || data.lottery || ""),
+            drawNumber: String(data.drawNumber || ""),
+            drawDate: String(data.drawDate || ""),
           };
         });
 
