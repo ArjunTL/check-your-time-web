@@ -1,77 +1,13 @@
 import React from "react";
 import Link from "next/link";
-
-const stats = [
-  { id: 1, name: "Daily Visitors", value: "5,000+" },
-  { id: 2, name: "Results Updated", value: "7 days/week" },
-  { id: 3, name: "Fast Updates", value: "< 1 min" },
-  { id: 4, name: "Kerala Lotteries", value: "All draws" },
-];
+import TicketChecker from "../../components/TicketChecker";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero */}
-      <div className="relative min-h-screen flex flex-col justify-center items-start overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            alt="Bhagya Neram background"
-            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2850&q=80"
-            className="h-full w-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-emerald-700 via-emerald-600 to-transparent opacity-80" />
-        </div>
-
-        <div className="relative z-10 max-w-screen-lg px-6 py-16 sm:px-12 sm:py-24 lg:px-24">
-          <span className="inline-flex items-center rounded-full bg-emerald-500/20 px-4 py-1 text-xs font-semibold text-emerald-100 ring-1 ring-emerald-200/40">
-            Bhagya Neram • Kerala Lottery Companion
-          </span>
-
-          <h1 className="mt-4 text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-tight tracking-tight text-white">
-            Check Kerala Lottery{" "}
-            <span className="text-yellow-300">results instantly</span> with
-            Bhagya Neram.
-          </h1>
-
-          <p className="mt-5 text-sm sm:text-base lg:text-lg text-emerald-50/90 leading-relaxed">
-            Bhagya Neram brings all official Kerala lottery results to one
-            simple, fast and mobile‑friendly place. Search by date, name or code
-            and find your result in seconds.
-          </p>
-
-          {/* Stats */}
-          <dl className="mt-10 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
-            {stats.map((stat) => (
-              <div
-                key={stat.id}
-                className="flex flex-col gap-y-1 border-l-4 border-emerald-200 pl-4"
-              >
-                <dt className="text-xs sm:text-sm font-medium text-emerald-50/80">
-                  {stat.name}
-                </dt>
-                <dd className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
-                  {stat.value}
-                </dd>
-              </div>
-            ))}
-          </dl>
-
-          {/* Primary CTAs */}
-          <div className="mt-10 flex flex-wrap gap-4">
-            <Link
-              href="/result"
-              className="inline-flex items-center justify-center rounded-lg bg-yellow-300 px-6 py-3 text-sm sm:text-base font-semibold text-emerald-900 shadow-lg shadow-yellow-500/30 transition hover:bg-yellow-200"
-            >
-              View Latest Results
-            </Link>
-            <a
-              href="#how-it-works"
-              className="inline-flex items-center justify-center rounded-lg border border-emerald-100/70 bg-emerald-900/20 px-6 py-3 text-sm sm:text-base font-semibold text-emerald-50 hover:bg-emerald-900/40"
-            >
-              How Bhagya Neram works
-            </a>
-          </div>
-        </div>
+      {/* Hero - Ticket Checker */}
+      <div className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50">
+        <TicketChecker />
       </div>
 
       {/* Section: Highlight */}
