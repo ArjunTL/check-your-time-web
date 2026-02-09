@@ -6,7 +6,8 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero - Ticket Checker */}
-      <div className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50">
+      {/* Hero - Ticket Checker */}
+      <div className="relative min-h-[calc(100vh-64px)] flex flex-col justify-start pt-10 sm:justify-center sm:pt-0 items-center overflow-hidden bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50">
         <TicketChecker />
       </div>
 
